@@ -8,8 +8,7 @@ Gabriel Alves Saran Audácio
 
 ### Tecnologias:
 
-Back-end: Python(FastApi)  
-DB: PostgreSQL  
+Back-end: Python 
 Front-end: React
 
 # Instruções para executar o projeto
@@ -22,41 +21,6 @@ Front-end: React
 git clone https://github.com/FernandoTinno/SAEL.git
 
 ```
-## Configurar ambiente virtual
-```bash
-python -m venv venv
-```
-## Ativar ambiente virtual
-```bash
-venv\Scripts\activate
-```
-## Linux / macOS
-```dash
-source venv/bin/activate
-```
-## Instalar dependências
-```bash
-pip install -r requirements.txt
-```
-## Configurar banco de dados PostgreSQL
-```bash
-# Criar banco de dados PostgreSQL
-# Configurar variáveis de ambiente no arquivo .env
-```
-## Executar o projeto
-```bash
-uvicorn main:app --reload
-```
-## Acessar a aplicação
-```bash
-http://localhost:8000
-```
-## Documentação da API
-```bash
-http://localhost:8000/docs
-```
-
----
 
 # Front-end (React)
 
