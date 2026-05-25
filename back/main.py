@@ -1,28 +1,32 @@
-from estruturas import LinkedList, Queue
+from biblioteca import SistemaBiblioteca
 
 
-def demonstrar_fila():
-    fila_espera = Queue()
+sistema = SistemaBiblioteca()
 
-    fila_espera.enqueue("Diogo")
-    fila_espera.enqueue("Fernando")
-    fila_espera.enqueue("Gabriel")
+sistema.cadastrar_livro("Dom Casmurro", "Machado de Assis", 1899, 1)
+sistema.cadastrar_membro("Diogo", "M001")
+sistema.cadastrar_membro("Fernando", "M002")
+sistema.cadastrar_membro("Gabriel", "M003")
 
-    print("Fila de espera:", fila_espera.to_list())
-    print("Primeiro atendido:", fila_espera.dequeue())
-    print("Fila após atendimento:", fila_espera.to_list())
+print(sistema.emprestar_livro("Dom Casmurro", "M001"))
+print(sistema.emprestar_livro("Dom Casmurro", "M002"))
+print(sistema.emprestar_livro("Dom Casmurro", "M003"))
 
+livro = sistema.buscar_livro("Dom Casmurro")
+membro_diogo = sistema.buscar_membro("M001")
+membro_fernando = sistema.buscar_membro("M002")
+membro_gabriel = sistema.buscar_membro("M003")
 
-def demonstrar_lista_encadeada():
-    historico = LinkedList()
+print("Disponiveis:", livro.disponiveis)
+print("Fila de espera:", [membro.nome for membro in livro.fila_espera.to_list()])
+print("Historico Diogo:", membro_diogo.historico.to_list())
+print("Historico Fernando:", membro_fernando.historico.to_list())
+print("Historico Gabriel:", membro_gabriel.historico.to_list())
 
-    historico.add_end("Emprestimo do livro Dom Casmurro")
-    historico.add_end("Emprestimo do livro A Dança dos Dragões")
-    historico.add_start("Cadastro do membro Raphael")
+print(sistema.devolver_livro("Dom Casmurro", "M001"))
 
-    print("Historico do membro:", historico.to_list())
-
-
-if __name__ == "__main__":
-    demonstrar_fila()
-    demonstrar_lista_encadeada()
+print("Disponiveis:", livro.disponiveis)
+print("Fila de espera:", [membro.nome for membro in livro.fila_espera.to_list()])
+print("Livros do Fernando:", membro_fernando.livros_emprestados)
+print("Historico Fernando:", membro_fernando.historico.to_list())
+print("Historico Gabriel:", membro_gabriel.historico.to_list())
