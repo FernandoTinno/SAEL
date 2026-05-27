@@ -1,6 +1,5 @@
 from estruturas import LinkedList, Queue
 
-
 class Livro:
     def __init__(self, titulo, autor, ano, quantidade):
         self.titulo = titulo
@@ -10,7 +9,6 @@ class Livro:
         self.disponiveis = quantidade
         self.fila_espera = Queue()
 
-
 class Membro:
     def __init__(self, nome, identificador):
         self.nome = nome
@@ -18,15 +16,14 @@ class Membro:
         self.livros_emprestados = []
         self.historico = LinkedList()
 
-
 class SistemaBiblioteca:
     def __init__(self):
-        self.livros = []
+        self.livros = LinkedList()
         self.membros = []
 
     def cadastrar_livro(self, titulo, autor, ano, quantidade):
         livro = Livro(titulo, autor, ano, quantidade)
-        self.livros.append(livro)
+        self.livros.add_end(livro)
         return livro
 
     def cadastrar_membro(self, nome, identificador):
@@ -35,7 +32,7 @@ class SistemaBiblioteca:
         return membro
 
     def buscar_livro(self, titulo):
-        for livro in self.livros:
+        for livro in self.livros.to_list():
             if livro.titulo == titulo:
                 return livro
         return None
@@ -55,6 +52,12 @@ class SistemaBiblioteca:
 
         if membro is None:
             return "Membro nao encontrado."
+
+        if len(membro.livros_emprestados) >= 2:
+            return "Limite de 2 livros atingido."
+            
+        if livro.titulo in membro.livros_emprestados:
+            return "Membro ja possui este livro."
 
         if livro.disponiveis > 0:
             livro.disponiveis -= 1
@@ -92,7 +95,7 @@ class SistemaBiblioteca:
         return f"Livro devolvido e emprestado para {proximo_membro.nome}."
 
     def listar_livros(self):
-        return self.livros
+        return self.livros.to_list()
 
     def listar_membros(self):
         return self.membros

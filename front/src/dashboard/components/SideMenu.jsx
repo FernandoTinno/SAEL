@@ -1,3 +1,4 @@
+
 import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
@@ -5,7 +6,6 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import SelectContent from './SelectContent';
 import MenuContent from './MenuContent';
 import OptionsMenu from './OptionsMenu';
 
@@ -40,7 +40,9 @@ export default function SideMenu() {
           p: 1.5,
         }}
       >
-        <SelectContent />
+        <Typography variant="h6" component="h1" sx={{ fontWeight: 600, ml: 1 }}>
+          Biblioteca
+        </Typography>
       </Box>
       <Divider />
       <Box
@@ -65,13 +67,13 @@ export default function SideMenu() {
       >
         <Avatar
           sizes="small"
-          alt="Riley Carter"
+          alt="Bibliotecário"
           src="/static/images/avatar/7.jpg"
           sx={{ width: 36, height: 36 }}
         />
         <Box sx={{ mr: 'auto' }}>
           <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: '16px' }}>
-            Bibliotecario
+            Bibliotecário
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             admin@biblioteca.local

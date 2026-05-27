@@ -42,33 +42,22 @@ export default function OptionsMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         sx={{
-          [`& .${listClasses.root}`]: {
-            padding: '4px',
-          },
-          [`& .${paperClasses.root}`]: {
-            padding: 0,
-          },
-          [`& .${dividerClasses.root}`]: {
-            margin: '4px -4px',
-          },
+          [`& .${listClasses.root}`]: { padding: '4px' },
+          [`& .${paperClasses.root}`]: { padding: 0 },
+          [`& .${dividerClasses.root}`]: { margin: '4px -4px' },
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Minha conta</MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>Add another account</MenuItem>
-        <MenuItem onClick={handleClose}>Settings</MenuItem>
+        <MenuItem onClick={handleClose}>Trocar de conta</MenuItem>
         <Divider />
         <MenuItem
           onClick={handleClose}
           sx={{
-            [`& .${listItemIconClasses.root}`]: {
-              ml: 'auto',
-              minWidth: 0,
-            },
+            [`& .${listItemIconClasses.root}`]: { ml: 'auto', minWidth: 0 },
           }}
         >
-          <ListItemText>Logout</ListItemText>
+          <ListItemText>Sair</ListItemText>
           <ListItemIcon>
             <LogoutRoundedIcon fontSize="small" />
           </ListItemIcon>

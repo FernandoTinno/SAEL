@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom';
+import * as React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -6,50 +7,32 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
+import BookRoundedIcon from '@mui/icons-material/BookRounded';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
-import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
+import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
+import AssignmentReturnRoundedIcon from '@mui/icons-material/AssignmentReturnRounded';
 
 const mainListItems = [
   { text: 'Dashboard', icon: <HomeRoundedIcon />, path: '/' },
-  { text: 'Cadastrar livro', icon: <MenuBookRoundedIcon />, path: '/cadastro-livro' },
-  { text: 'Cadastrar membro', icon: <PeopleRoundedIcon />, path: '/cadastro-membro' },
-];
-
-const secondaryListItems = [
-  { text: 'Configuracoes', icon: <SettingsRoundedIcon /> },
-  { text: 'Sobre', icon: <InfoRoundedIcon /> },
-  { text: 'Ajuda', icon: <HelpRoundedIcon /> },
+  { text: 'Empréstimo', icon: <AssignmentRoundedIcon />, path: '/emprestimo' },
+  { text: 'Devolução', icon: <AssignmentReturnRoundedIcon />, path: '/devolucao' },
+  { text: 'Cadastrar Livro', icon: <BookRoundedIcon />, path: '/cadastro-livro' },
+  { text: 'Cadastrar Membro', icon: <PeopleRoundedIcon />, path: '/cadastro-membro' },
 ];
 
 export default function MenuContent() {
+  const location = useLocation();
+
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense>
         {mainListItems.map((item, index) => (
           <ListItem key={index} disablePadding sx={{ display: 'block' }}>
             <ListItemButton
-              component={NavLink}
+              component={Link}
               to={item.path}
-              end={item.path === '/'}
-              sx={{
-                '&.active': {
-                  bgcolor: 'action.selected',
-                },
-              }}
+              selected={location.pathname === item.path}
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <List dense>
-        {secondaryListItems.map((item, index) => (
-          <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>

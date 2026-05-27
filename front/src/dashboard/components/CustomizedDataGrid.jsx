@@ -1,45 +1,58 @@
-import { DataGrid } from '@mui/x-data-grid';
-import { columns, rows } from '../internals/data/gridData';
 
-export default function CustomizedDataGrid() {
+import { DataGrid } from '@mui/x-data-grid';
+import Chip from '@mui/material/Chip';
+
+const columns = [
+  { field: 'titulo', headerName: 'Nome do livro', flex: 1.5, minWidth: 200 },
+  { field: 'autor', headerName: 'Autor', flex: 1, minWidth: 150 },
+  { field: 'ano', headerName: 'Ano', headerAlign: 'right', align: 'right', flex: 0.5, minWidth: 80 },
+  {
+    field: 'status',
+    headerName: 'Status',
+    flex: 1,
+    minWidth: 120,
+    renderCell: (params) => {
+      const isDisponivel = params.row.disponiveis > 0;
+      return (
+        <Chip
+          label={isDisponivel ? 'Disponível' : 'Indisponível'}
+          color={isDisponivel ? 'success' : 'error'}
+          size="small"
+        />
+      );
+    },
+  },
+  { field: 'quantidade', headerName: 'Qtd Total', headerAlign: 'right', align: 'right', flex: 0.5, minWidth: 100 },
+  { field: 'disponiveis', headerName: 'Disponíveis', headerAlign: 'right', align: 'right', flex: 0.5, minWidth: 100 },
+];
+
+export default function CustomizedDataGrid({ livros = [] }) {
+  const rows = (livros || []).map((livro, index) => ({
+    id: index + 1,
+    titulo: livro.titulo || '-',
+    autor: livro.autor || '-',
+    ano: livro.ano || '-',
+    quantidade: livro.quantidade || 0,
+    disponiveis: livro.disponiveis || 0,
+  }));
+
   return (
     <DataGrid
-      checkboxSelection
+      autoHeight
       rows={rows}
       columns={columns}
       getRowClassName={(params) =>
         params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
       }
       initialState={{
-        pagination: { paginationModel: { pageSize: 20 } },
+        pagination: { paginationModel: { pageSize: 10 } },
       }}
       pageSizeOptions={[10, 20, 50]}
       disableColumnResize
       density="compact"
-      slotProps={{
-        filterPanel: {
-          filterFormProps: {
-            logicOperatorInputProps: {
-              variant: 'outlined',
-              size: 'small',
-            },
-            columnInputProps: {
-              variant: 'outlined',
-              size: 'small',
-              sx: { mt: 'auto' },
-            },
-            operatorInputProps: {
-              variant: 'outlined',
-              size: 'small',
-              sx: { mt: 'auto' },
-            },
-            valueInputProps: {
-              InputComponentProps: {
-                variant: 'outlined',
-                size: 'small',
-              },
-            },
-          },
+      localeText={{
+        MuiTablePagination: {
+          labelRowsPerPage: 'Itens por página',
         },
       }}
     />
