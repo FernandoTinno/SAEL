@@ -4,6 +4,8 @@ import CadastroLivro from './pages/CadastroLivro';
 import CadastroMembro from './pages/CadastroMembro';
 import Emprestimo from './pages/Emprestimo';
 import Devolucao from './pages/Devolucao';
+import FilaEspera from './pages/FilaEspera';
+import Historico from './pages/Historico';
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/emprestimo" element={<Dashboard><Emprestimo /></Dashboard>} />
         <Route path="/devolucao" element={<Dashboard><Devolucao /></Dashboard>} />
+        <Route path="/filaespera" element={<Dashboard><FilaEspera /></Dashboard>} />
+        <Route path="/historico" element={<Dashboard><Historico /></Dashboard>} />
         <Route path="/cadastro-livro" element={<Dashboard><CadastroLivro /></Dashboard>} />
         <Route path="/cadastro-membro" element={<Dashboard><CadastroMembro /></Dashboard>} />
       </Routes>

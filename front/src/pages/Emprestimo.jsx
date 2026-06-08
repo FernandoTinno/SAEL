@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {
   Box, Typography, Card, CardContent, List, ListItem, ListItemText,
   Checkbox, Button, Dialog, DialogTitle, DialogContent, DialogActions,
-  TextField, RadioGroup, FormControlLabel, Radio, Alert
+  TextField, RadioGroup, FormControlLabel, Radio, Alert, Stack
 } from '@mui/material';
 
 export default function Emprestimo() {
   const [livros, setLivros] = useState([]);
   const [membros, setMembros] = useState([]);
   const [selectedBooks, setSelectedBooks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [identificador, setIdentificador] = useState('');
   const [step, setStep] = useState(1);
@@ -31,6 +32,11 @@ export default function Emprestimo() {
   };
 
   useEffect(() => { fetchData(); }, []);
+
+  const livrosDisponiveis = livros.filter(livro => 
+    livro.disponiveis > 0 && 
+    livro.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleToggleBook = (titulo) => {
     const currentIndex = selectedBooks.indexOf(titulo);
@@ -94,29 +100,47 @@ export default function Emprestimo() {
   };
 
   return (
-    <Box sx={{ maxWidth: 800 }}>
-      <Typography variant="h4" component="h1" gutterBottom fontWeight={700}>Empréstimo</Typography>
+    <Stack spacing={4} sx={{ maxWidth: 800 }}>
+      <div>
+        <Typography variant="h4" component="h1" gutterBottom fontWeight={700}>
+          Empréstimo
+        </Typography>
+        <Typography color="text.secondary">
+          Selecione os livros disponíveis no acervo para realizar o empréstimo.
+        </Typography>
+      </div>
+
+      <TextField
+        fullWidth
+        variant="outlined"
+        label="Pesquisar livro disponível pelo nome..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
       <Card variant="outlined">
         <CardContent>
           <List>
-            {livros.map((livro, idx) => {
-              const isIndisponivel = livro.disponiveis === 0;
-              return (
+            {livrosDisponiveis.length === 0 ? (
+              <Typography sx={{ p: 2 }} color="text.secondary">
+                Nenhum livro disponível encontrado no momento.
+              </Typography>
+            ) : (
+              livrosDisponiveis.map((livro, idx) => (
                 <ListItem key={idx} disablePadding>
                   <Checkbox
                     edge="start"
                     checked={selectedBooks.indexOf(livro.titulo) !== -1}
                     onChange={() => handleToggleBook(livro.titulo)}
-                    disabled={isIndisponivel || (selectedBooks.length >= 2 && selectedBooks.indexOf(livro.titulo) === -1)}
+                    disabled={selectedBooks.length >= 2 && selectedBooks.indexOf(livro.titulo) === -1}
                   />
                   <ListItemText
                     primary={livro.titulo}
-                    secondary={`Disponíveis: ${livro.disponiveis} / ${livro.quantidade}`}
-                    sx={{ color: isIndisponivel ? 'text.disabled' : 'text.primary' }}
+                    secondary={`Disponíveis: ${livro.disponiveis} de ${livro.quantidade}`}
                   />
                 </ListItem>
-              );
-            })}
+              ))
+            )}
           </List>
           <Button variant="contained" onClick={handleOpenModal} sx={{ mt: 2 }}>
             Emprestar
@@ -158,6 +182,6 @@ export default function Emprestimo() {
           )}
         </DialogActions>
       </Dialog>
-    </Box>
+    </Stack>
   );
 }

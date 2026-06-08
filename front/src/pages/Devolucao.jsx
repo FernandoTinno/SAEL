@@ -45,6 +45,11 @@ export default function Devolucao() {
   };
 
   const handleDevolver = async () => {
+    if (selectedReturnBooks.length === 0) {
+      alert("Selecione pelo menos um livro para devolver.");
+      return;
+    }
+    
     for (let titulo of selectedReturnBooks) {
       await fetch('http://localhost:8000/devolucoes', {
         method: 'POST',
@@ -80,7 +85,7 @@ export default function Devolucao() {
               ))
             }
           </List>
-          <Button variant="contained" onClick={handleOpenModal} sx={{ mt: 2 }} disabled={!selectedMembroId}>
+          <Button variant="contained" onClick={handleOpenModal} sx={{ mt: 2 }}>
             Devolver
           </Button>
         </CardContent>
@@ -106,7 +111,7 @@ export default function Devolucao() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setModalOpen(false)}>Cancelar</Button>
-          <Button variant="contained" onClick={handleDevolver} disabled={selectedReturnBooks.length === 0}>
+          <Button variant="contained" onClick={handleDevolver}>
             Confirmar Devolução
           </Button>
         </DialogActions>
