@@ -122,7 +122,6 @@ class SistemaBiblioteca:
         ]
 
     def ordenar_livros(self, livros, ordem="asc"):
-        # Ordena por titulo: "asc" = A-Z, "desc" = Z-A.
         return sorted(
             livros,
             key=lambda livro: livro.titulo.lower(),

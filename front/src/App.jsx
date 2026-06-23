@@ -6,12 +6,14 @@ import Emprestimo from './pages/Emprestimo';
 import Devolucao from './pages/Devolucao';
 import FilaEspera from './pages/FilaEspera';
 import Historico from './pages/Historico';
+import Acervo from './pages/Acervo';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/acervo" element={<Dashboard><Acervo /></Dashboard>} />
         <Route path="/emprestimo" element={<Dashboard><Emprestimo /></Dashboard>} />
         <Route path="/devolucao" element={<Dashboard><Devolucao /></Dashboard>} />
         <Route path="/filaespera" element={<Dashboard><FilaEspera /></Dashboard>} />

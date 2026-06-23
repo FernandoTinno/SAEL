@@ -74,8 +74,13 @@ def cadastrar_livro(livro: Livro):
 
 
 @app.get("/livros")
-def listar_livros():
-    return [livro_para_json(livro) for livro in sistema.listar_livros()]
+def listar_livros(busca: str = "", ordem: str = ""):
+    livros = sistema.buscar_livros(busca)
+
+    if ordem in ("asc", "desc"):
+        livros = sistema.ordenar_livros(livros, ordem)
+
+    return [livro_para_json(livro) for livro in livros]
 
 
 @app.post("/membros")

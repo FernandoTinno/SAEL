@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -7,6 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import LibraryBooksRoundedIcon from '@mui/icons-material/LibraryBooksRounded';
 import BookRoundedIcon from '@mui/icons-material/BookRounded';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
 import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
@@ -16,6 +16,7 @@ import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
 
 const mainListItems = [
   { text: 'Dashboard', icon: <HomeRoundedIcon />, path: '/' },
+  { text: 'Acervo', icon: <LibraryBooksRoundedIcon />, path: '/acervo' },
   { text: 'Empréstimo', icon: <AssignmentRoundedIcon />, path: '/emprestimo' },
   { text: 'Devolução', icon: <AssignmentReturnRoundedIcon />, path: '/devolucao' },
   { text: 'Fila de Espera', icon: <PendingActionsRoundedIcon />, path: '/filaespera' },
