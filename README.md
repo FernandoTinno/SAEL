@@ -14,6 +14,14 @@ Front-end: React (Vite)
 > **Obs.:** Os dados ficam em memória (não há banco de dados). Ao reiniciar o
 > back-end, os cadastros voltam ao estado inicial.
 
+# Funcionalidades
+
+- Cadastro de livros e de membros
+- Empréstimo e devolução de livros (limite de 2 livros por membro)
+- Fila de espera (estrutura de fila) para livros indisponíveis
+- Histórico de atividades por membro (lista encadeada)
+- Busca de livros por título ou autor e ordenação do acervo por título (A–Z / Z–A)
+
 # Instruções para executar o projeto
 
 > É necessário rodar o **back-end** e o **front-end** ao mesmo tempo, em
