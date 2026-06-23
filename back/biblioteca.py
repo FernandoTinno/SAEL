@@ -48,39 +48,42 @@ class SistemaBiblioteca:
         membro = self.buscar_membro(identificador_membro)
 
         if livro is None:
-            return "Livro nao encontrado."
+            return "Livro não encontrado."
 
         if membro is None:
-            return "Membro nao encontrado."
+            return "Membro não encontrado."
 
         if len(membro.livros_emprestados) >= 2:
             return "Limite de 2 livros atingido."
             
         if livro.titulo in membro.livros_emprestados:
-            return "Membro ja possui este livro."
+            return "Membro já possui este livro."
 
         if livro.disponiveis > 0:
             livro.disponiveis -= 1
             membro.livros_emprestados.append(livro.titulo)
-            membro.historico.add_end(f"Emprestou: {livro.titulo}")
+            membro.historico.add_end(f"Pegou emprestado: {livro.titulo}")
             return "Livro emprestado com sucesso."
 
+        if any(m.identificador == membro.identificador for m in livro.fila_espera.to_list()):
+            return "Membro já está na fila de espera deste livro."
+
         livro.fila_espera.enqueue(membro)
-        membro.historico.add_end(f"Entrou na fila: {livro.titulo}")
-        return "Livro indisponivel. Membro entrou na fila de espera."
+        membro.historico.add_end(f"Entrou na fila de espera: {livro.titulo}")
+        return "Livro indisponível. Membro entrou na fila de espera."
 
     def devolver_livro(self, titulo_livro, identificador_membro):
         livro = self.buscar_livro(titulo_livro)
         membro = self.buscar_membro(identificador_membro)
 
         if livro is None:
-            return "Livro nao encontrado."
+            return "Livro não encontrado."
 
         if membro is None:
-            return "Membro nao encontrado."
+            return "Membro não encontrado."
 
         if livro.titulo not in membro.livros_emprestados:
-            return "Este membro nao esta com esse livro."
+            return "Este membro não está com esse livro."
 
         membro.livros_emprestados.remove(livro.titulo)
         membro.historico.add_end(f"Devolveu: {livro.titulo}")
@@ -95,7 +98,7 @@ class SistemaBiblioteca:
                 continue
 
             proximo_membro.livros_emprestados.append(livro.titulo)
-            proximo_membro.historico.add_end(f"Recebeu pela fila: {livro.titulo}")
+            proximo_membro.historico.add_end(f"Recebeu da fila de espera: {livro.titulo}")
             return f"Livro devolvido e emprestado para {proximo_membro.nome}."
 
         livro.disponiveis += 1
@@ -108,7 +111,6 @@ class SistemaBiblioteca:
         return self.membros
 
     def buscar_livros(self, termo):
-        # Busca por titulo OU autor (parcial, ignorando maiusculas/minusculas).
         termo = (termo or "").strip().lower()
         livros = self.livros.to_list()
 

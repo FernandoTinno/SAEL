@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   Box, Typography, Card, CardContent, List, ListItem, ListItemText,
   Checkbox, Button, Dialog, DialogTitle, DialogContent, DialogActions,
-  TextField, RadioGroup, FormControlLabel, Radio, Alert, Stack
+  TextField, RadioGroup, FormControlLabel, Radio, Alert, Stack, Autocomplete
 } from '@mui/material';
 
 export default function Emprestimo() {
@@ -33,8 +33,7 @@ export default function Emprestimo() {
 
   useEffect(() => { fetchData(); }, []);
 
-  const livrosDisponiveis = livros.filter(livro => 
-    livro.disponiveis > 0 && 
+  const livrosFiltrados = livros.filter(livro =>
     livro.titulo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -87,16 +86,31 @@ export default function Emprestimo() {
   };
 
   const processarEmprestimo = async (livrosParaEmprestar, membroId) => {
+    const resultados = [];
     for (let titulo of livrosParaEmprestar) {
-      await fetch('http://localhost:8000/emprestimos', {
+      const res = await fetch('http://localhost:8000/emprestimos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ titulo_livro: titulo, identificador_membro: membroId })
       });
+      const data = await res.json();
+      resultados.push(`${titulo}: ${data.mensagem}`);
     }
-    setModalOpen(false);
-    setSelectedBooks([]);
+
     fetchData();
+
+    // "sucesso" = emprestado; "entrou na fila de espera" = reserva OK.
+    // Qualquer outra mensagem (ja esta na fila, limite, etc.) e um aviso.
+    const houveProblema = resultados.some(
+      (r) => !/sucesso|entrou na fila de espera/i.test(r)
+    );
+
+    if (houveProblema) {
+      setFeedback({ type: 'warning', text: resultados.join(' • ') });
+    } else {
+      setSelectedBooks([]);
+      setModalOpen(false);
+    }
   };
 
   return (
@@ -106,14 +120,14 @@ export default function Emprestimo() {
           Empréstimo
         </Typography>
         <Typography color="text.secondary">
-          Selecione os livros disponíveis no acervo para realizar o empréstimo.
+          Selecione os livros para emprestar. Livros esgotados entram na fila de espera.
         </Typography>
       </div>
 
       <TextField
         fullWidth
         variant="outlined"
-        placeholder="Pesquisar livro disponível pelo nome..."
+        placeholder="Pesquisar livro pelo nome..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -121,12 +135,12 @@ export default function Emprestimo() {
       <Card variant="outlined">
         <CardContent>
           <List>
-            {livrosDisponiveis.length === 0 ? (
+            {livrosFiltrados.length === 0 ? (
               <Typography sx={{ p: 2 }} color="text.secondary">
-                Nenhum livro disponível encontrado no momento.
+                Nenhum livro encontrado.
               </Typography>
             ) : (
-              livrosDisponiveis.map((livro, idx) => (
+              livrosFiltrados.map((livro, idx) => (
                 <ListItem key={idx} disablePadding>
                   <Checkbox
                     edge="start"
@@ -136,7 +150,11 @@ export default function Emprestimo() {
                   />
                   <ListItemText
                     primary={livro.titulo}
-                    secondary={`Disponíveis: ${livro.disponiveis} de ${livro.quantidade}`}
+                    secondary={
+                      livro.disponiveis > 0
+                        ? `Disponíveis: ${livro.disponiveis} de ${livro.quantidade}`
+                        : 'Esgotado — selecione para entrar na fila de espera'
+                    }
                   />
                 </ListItem>
               ))
@@ -153,14 +171,21 @@ export default function Emprestimo() {
         <DialogContent>
           {feedback && <Alert severity={feedback.type} sx={{ mb: 2 }}>{feedback.text}</Alert>}
           {step === 1 ? (
-            <TextField
-              autoFocus
-              margin="dense"
-              placeholder="Nome ou Identificador do Membro"
+            <Autocomplete
               fullWidth
-              variant="outlined"
-              value={identificador}
-              onChange={(e) => setIdentificador(e.target.value)}
+              options={membros}
+              autoHighlight
+              getOptionLabel={(m) => `${m.nome} — ${m.identificador}`}
+              isOptionEqualToValue={(opt, val) => opt.identificador === val.identificador}
+              onChange={(event, value) => setIdentificador(value ? value.identificador : '')}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  autoFocus
+                  margin="dense"
+                  placeholder="Comece a digitar o nome do membro..."
+                />
+              )}
             />
           ) : (
             <Box>
