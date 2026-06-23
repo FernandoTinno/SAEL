@@ -106,3 +106,25 @@ class SistemaBiblioteca:
 
     def listar_membros(self):
         return self.membros
+
+    def buscar_livros(self, termo):
+        # Busca por titulo OU autor (parcial, ignorando maiusculas/minusculas).
+        termo = (termo or "").strip().lower()
+        livros = self.livros.to_list()
+
+        if not termo:
+            return livros
+
+        return [
+            livro
+            for livro in livros
+            if termo in livro.titulo.lower() or termo in livro.autor.lower()
+        ]
+
+    def ordenar_livros(self, livros, ordem="asc"):
+        # Ordena por titulo: "asc" = A-Z, "desc" = Z-A.
+        return sorted(
+            livros,
+            key=lambda livro: livro.titulo.lower(),
+            reverse=(ordem == "desc"),
+        )
