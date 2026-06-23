@@ -8,52 +8,69 @@ Gabriel Alves Saran Audácio
 
 ### Tecnologias:
 
-Back-end: Python 
-Front-end: React
+Back-end: Python (FastAPI)  
+Front-end: React (Vite)
+
+> **Obs.:** Os dados ficam em memória (não há banco de dados). Ao reiniciar o
+> back-end, os cadastros voltam ao estado inicial.
 
 # Instruções para executar o projeto
 
-*Obs:*  Sujeito a alterações
+> É necessário rodar o **back-end** e o **front-end** ao mesmo tempo, em
+> terminais separados.
 
-## Clonar o repositório
+## 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/FernandoTinno/SAEL.git
-
+cd SAEL
 ```
 
-# Front-end (React)
+## 2. Back-end (Python / FastAPI)
 
-## Acessar a pasta do front-end
+Em um terminal:
 
 ```bash
-cd frontend
+cd back
+
+# (opcional) criar e ativar um ambiente virtual
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# Linux/Mac:
+source .venv/bin/activate
+
+# instalar dependências
+pip install fastapi "uvicorn[standard]"
+
+# iniciar a API em http://localhost:8000
+uvicorn api:app --reload --port 8000
 ```
 
-## Instalar dependências do React
+## 3. Front-end (React / Vite)
+
+Em outro terminal:
 
 ```bash
+cd front
+
+# instalar dependências
 npm install
-```
 
-## Executar o front-end
-
-```bash
+# iniciar a aplicação em http://localhost:5173
 npm run dev
 ```
 
-## Acessar aplicação React
+## 4. Acessar a aplicação
 
-```bash
+Abra no navegador:
+
+```
 http://localhost:5173
 ```
 
----
-
 # Observações
 
-```bash
-# Certifique-se de que o Node.js esteja instalado
-# Certifique-se de que o PostgreSQL esteja em execução
-# Execute o back-end e o front-end simultaneamente
-```
+- Certifique-se de que o **Node.js** e o **Python** estejam instalados.
+- O front-end consome a API em `http://localhost:8000`; mantenha o back-end em
+  execução enquanto usa a aplicação.

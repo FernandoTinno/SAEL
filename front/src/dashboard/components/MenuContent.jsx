@@ -18,7 +18,7 @@ const mainListItems = [
   { text: 'Dashboard', icon: <HomeRoundedIcon />, path: '/' },
   { text: 'Empréstimo', icon: <AssignmentRoundedIcon />, path: '/emprestimo' },
   { text: 'Devolução', icon: <AssignmentReturnRoundedIcon />, path: '/devolucao' },
-  { text: 'Fila de Espera', icon: <PendingActionsRoundedIcon />, path: '/FilaEspera' },
+  { text: 'Fila de Espera', icon: <PendingActionsRoundedIcon />, path: '/filaespera' },
   { text: 'Histórico', icon: <HistoryRoundedIcon />, path: '/historico' },
   { text: 'Cadastrar Livro', icon: <BookRoundedIcon />, path: '/cadastro-livro' },
   { text: 'Cadastrar Membro', icon: <PeopleRoundedIcon />, path: '/cadastro-membro' },

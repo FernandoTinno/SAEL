@@ -85,14 +85,21 @@ class SistemaBiblioteca:
         membro.livros_emprestados.remove(livro.titulo)
         membro.historico.add_end(f"Devolveu: {livro.titulo}")
 
-        if livro.fila_espera.is_empty():
-            livro.disponiveis += 1
-            return "Livro devolvido com sucesso."
+        while not livro.fila_espera.is_empty():
+            proximo_membro = livro.fila_espera.dequeue()
 
-        proximo_membro = livro.fila_espera.dequeue()
-        proximo_membro.livros_emprestados.append(livro.titulo)
-        proximo_membro.historico.add_end(f"Recebeu pela fila: {livro.titulo}")
-        return f"Livro devolvido e emprestado para {proximo_membro.nome}."
+            if len(proximo_membro.livros_emprestados) >= 2:
+                proximo_membro.historico.add_end(
+                    f"Pulado na fila (limite de 2 livros): {livro.titulo}"
+                )
+                continue
+
+            proximo_membro.livros_emprestados.append(livro.titulo)
+            proximo_membro.historico.add_end(f"Recebeu pela fila: {livro.titulo}")
+            return f"Livro devolvido e emprestado para {proximo_membro.nome}."
+
+        livro.disponiveis += 1
+        return "Livro devolvido com sucesso."
 
     def listar_livros(self):
         return self.livros.to_list()
