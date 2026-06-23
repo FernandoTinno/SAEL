@@ -62,7 +62,7 @@ export default function MainGrid() {
       </Typography>
       <Grid container spacing={2} sx={{ mb: (theme) => theme.spacing(2) }}>
         {data.map((card, index) => (
-          <Grid item xs={12} sm={6} lg={4} key={index}>
+          <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={index}>
             <StatCard {...card} />
           </Grid>
         ))}
@@ -71,7 +71,7 @@ export default function MainGrid() {
         Detalhes do Acervo
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <CustomizedDataGrid livros={livros} />
         </Grid>
       </Grid>

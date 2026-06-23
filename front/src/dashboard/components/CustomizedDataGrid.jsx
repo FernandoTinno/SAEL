@@ -3,14 +3,14 @@ import { DataGrid } from '@mui/x-data-grid';
 import Chip from '@mui/material/Chip';
 
 const columns = [
-  { field: 'titulo', headerName: 'Nome do livro', flex: 1.5, minWidth: 200 },
-  { field: 'autor', headerName: 'Autor', flex: 1, minWidth: 150 },
-  { field: 'ano', headerName: 'Ano', headerAlign: 'right', align: 'right', flex: 0.5, minWidth: 80 },
+  { field: 'titulo', headerName: 'Nome do livro', flex: 1.5, minWidth: 160 },
+  { field: 'autor', headerName: 'Autor', flex: 1, minWidth: 130 },
+  { field: 'ano', headerName: 'Ano', flex: 0.5, minWidth: 70 },
   {
     field: 'status',
     headerName: 'Status',
-    flex: 1,
-    minWidth: 120,
+    flex: 0.8,
+    minWidth: 110,
     renderCell: (params) => {
       const isDisponivel = params.row.disponiveis > 0;
       return (
@@ -22,8 +22,8 @@ const columns = [
       );
     },
   },
-  { field: 'quantidade', headerName: 'Qtd Total', headerAlign: 'right', align: 'right', flex: 0.5, minWidth: 100 },
-  { field: 'disponiveis', headerName: 'Disponíveis', headerAlign: 'right', align: 'right', flex: 0.5, minWidth: 100 },
+  { field: 'quantidade', headerName: 'Qtd Total', headerAlign: 'right', align: 'right', flex: 0.5, minWidth: 80 },
+  { field: 'disponiveis', headerName: 'Disponíveis', headerAlign: 'right', align: 'right', flex: 0.6, minWidth: 90 },
 ];
 
 export default function CustomizedDataGrid({ livros = [] }) {
@@ -49,7 +49,10 @@ export default function CustomizedDataGrid({ livros = [] }) {
       }}
       pageSizeOptions={[10, 20, 50]}
       disableColumnResize
-      density="compact"
+      density="standard"
+      rowHeight={56}
+      columnHeaderHeight={48}
+      sx={{ '& .MuiDataGrid-cell': { display: 'flex', alignItems: 'center' } }}
       localeText={{
         MuiTablePagination: {
           labelRowsPerPage: 'Itens por página',

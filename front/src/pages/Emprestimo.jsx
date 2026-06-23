@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box, Typography, Card, CardContent, List, ListItem, ListItemText,
   Checkbox, Button, Dialog, DialogTitle, DialogContent, DialogActions,
@@ -113,7 +113,7 @@ export default function Emprestimo() {
       <TextField
         fullWidth
         variant="outlined"
-        label="Pesquisar livro disponível pelo nome..."
+        placeholder="Pesquisar livro disponível pelo nome..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -156,7 +156,7 @@ export default function Emprestimo() {
             <TextField
               autoFocus
               margin="dense"
-              label="Nome ou Identificador do Membro"
+              placeholder="Nome ou Identificador do Membro"
               fullWidth
               variant="outlined"
               value={identificador}

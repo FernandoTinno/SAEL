@@ -72,10 +72,10 @@ export default function CadastroMembro() {
           <CardContent>
             <Stack component="form" spacing={2} onSubmit={handleSubmit}>
               {feedback && <Alert severity={feedback.severity}>{feedback.message}</Alert>}
-              <TextField name="nome" label="Nome Completo" value={membro.nome} onChange={handleChange} required fullWidth />
+              <TextField name="nome" placeholder="Nome Completo" value={membro.nome} onChange={handleChange} required fullWidth />
               <TextField
                 name="identificador"
-                label="Identificador (CPF)"
+                placeholder="Identificador (CPF)"
                 value={membro.identificador}
                 onChange={handleChange}
                 required

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Box, Typography, Card, CardContent, List, ListItem, ListItemText, 
+  Typography, Card, CardContent, List, ListItem, ListItemText,
   Divider, Chip, Stack, TextField 
 } from '@mui/material';
 
@@ -41,7 +41,7 @@ export default function FilaEspera() {
       <TextField
         fullWidth
         variant="outlined"
-        label="Pesquisar livro indisponível pelo nome..."
+        placeholder="Pesquisar livro indisponível pelo nome..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

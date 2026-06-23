@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Card, CardContent, List, ListItem, ListItemText, Divider, Stack } from '@mui/material';
+import { Typography, Card, CardContent, List, ListItem, ListItemText, Divider, Stack } from '@mui/material';
 
 export default function Historico() {
   const [membros, setMembros] = useState([]);

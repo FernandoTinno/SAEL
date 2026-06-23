@@ -76,11 +76,11 @@ export default function CadastroLivro() {
           <CardContent>
             <Stack component="form" spacing={2} onSubmit={handleSubmit}>
               {feedback && <Alert severity={feedback.severity}>{feedback.message}</Alert>}
-              <TextField name="titulo" label="Titulo" value={livro.titulo} onChange={handleChange} required fullWidth />
-              <TextField name="autor" label="Autor" value={livro.autor} onChange={handleChange} required fullWidth />
+              <TextField name="titulo" placeholder="Título" value={livro.titulo} onChange={handleChange} required fullWidth />
+              <TextField name="autor" placeholder="Autor" value={livro.autor} onChange={handleChange} required fullWidth />
               <TextField
                 name="ano"
-                label="Ano de publicacao"
+                placeholder="Ano de publicação"
                 type="number"
                 value={livro.ano}
                 onChange={handleChange}
@@ -89,7 +89,7 @@ export default function CadastroLivro() {
               />
               <TextField
                 name="quantidade"
-                label="Quantidade"
+                placeholder="Quantidade"
                 type="number"
                 value={livro.quantidade}
                 onChange={handleChange}

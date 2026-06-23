@@ -52,11 +52,11 @@ export default function Acervo() {
         </Typography>
       </div>
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ alignItems: 'center' }}>
         <TextField
           fullWidth
           variant="outlined"
-          label="Buscar por título ou autor..."
+          placeholder="Buscar por título ou autor..."
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
         />
@@ -64,13 +64,15 @@ export default function Acervo() {
           value={ordem}
           exclusive
           onChange={handleOrdem}
+          size="small"
           aria-label="ordenar por título"
+          sx={{ flexShrink: 0, boxShadow: 'none' }}
         >
-          <ToggleButton value="asc" aria-label="A a Z">
-            <ArrowUpwardRoundedIcon fontSize="small" sx={{ mr: 0.5 }} /> A–Z
+          <ToggleButton value="asc" aria-label="A a Z" sx={{ gap: 0.5, px: 2, py: 1, whiteSpace: 'nowrap', boxShadow: 'none' }}>
+            <ArrowUpwardRoundedIcon fontSize="small" /> A–Z
           </ToggleButton>
-          <ToggleButton value="desc" aria-label="Z a A">
-            <ArrowDownwardRoundedIcon fontSize="small" sx={{ mr: 0.5 }} /> Z–A
+          <ToggleButton value="desc" aria-label="Z a A" sx={{ gap: 0.5, px: 2, py: 1, whiteSpace: 'nowrap', boxShadow: 'none' }}>
+            <ArrowDownwardRoundedIcon fontSize="small" /> Z–A
           </ToggleButton>
         </ToggleButtonGroup>
       </Stack>

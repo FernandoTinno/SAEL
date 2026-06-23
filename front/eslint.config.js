@@ -17,5 +17,10 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+    rules: {
+      // O projeto usa o padrao comum de buscar dados no useEffect (setState
+      // apos await). A regra nova do react-hooks marca isso como falso-positivo.
+      'react-hooks/set-state-in-effect': 'off',
+    },
   },
 ])
