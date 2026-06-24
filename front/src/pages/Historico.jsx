@@ -47,9 +47,9 @@ export default function Historico() {
                   {membro.historico.map((acao, pos) => (
                     <React.Fragment key={pos}>
                       <ListItem sx={{ py: 1, px: 0 }}>
-                        <ListItemText 
-                          primary={`• ${acao}`} 
-                          primaryTypographyProps={{ variant: 'body2', color: 'text.secondary' }} 
+                        <ListItemText
+                          primary={`• ${acao}`}
+                          slotProps={{ primary: { variant: 'body2', color: 'text.secondary' } }}
                         />
                       </ListItem>
                       {pos < membro.historico.length - 1 && <Divider />}

@@ -56,7 +56,7 @@ export default function FilaEspera() {
         livrosIndisponiveis.map((livro, index) => (
           <Card key={index} variant="outlined">
             <CardContent>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+              <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Typography variant="h6" fontWeight="600">
                   📖 {livro.titulo}
                 </Typography>
